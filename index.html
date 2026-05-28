@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双色球预测分析系统</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎰 双色球预测分析系统</h1>
+            <p>基于最近20期号码的智能分析预测</p>
+        </header>
+
+        <main>
+            <!-- 数据输入区域 -->
+            <section class="input-section">
+                <h2>历史号码数据</h2>
+                <div class="input-area">
+                    <textarea id="historyData" placeholder="请输入最近20期双色球号码&#10;格式: 红1,红2,红3,红4,红5,红6,蓝&#10;例如: 03,12,25,31,32,33,06&#10;&#10;每行一期，共20行"></textarea>
+                    <button id="loadSampleData" class="btn btn-secondary">加载示例数据</button>
+                    <button id="analyzeData" class="btn btn-primary">开始分析</button>
+                </div>
+            </section>
+
+            <!-- 分析结果区域 -->
+            <section class="result-section" id="resultSection" style="display: none;">
+                <!-- 总体统计 -->
+                <div class="statistics">
+                    <h2>📊 总体统计</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <p class="stat-label">分析期数</p>
+                            <p class="stat-value" id="totalPeriods">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <p class="stat-label">数据完整性</p>
+                            <p class="stat-value" id="dataIntegrity">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <p class="stat-label">红球范围</p>
+                            <p class="stat-value">01-33</p>
+                        </div>
+                        <div class="stat-card">
+                            <p class="stat-label">蓝球范围</p>
+                            <p class="stat-value">01-16</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 逐位分析 -->
+                <div class="position-analysis">
+                    <h2>🔍 逐位分析</h2>
+                    
+                    <!-- 第1位 -->
+                    <div class="position-card">
+                        <h3>第1位分析</h3>
+                        <div class="chart-container">
+                            <canvas id="position1Chart"></canvas>
+                        </div>
+                        <div class="analysis-details">
+                            <p><strong>频次最高:</strong> <span id="pos1High">-</span></p>
+                            <p><strong>出现次数:</strong> <span id="pos1Count">-</span></p>
+                            <p><strong>热点号码:</strong> <span id="pos1Hot">-</span></p>
+                            <p><strong>冷号推荐:</strong> <span id="pos1Cold">-</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 第2位 -->
+                    <div class="position-card">
+                        <h3>第2位分析</h3>
+                        <div class="chart-container">
+                            <canvas id="position2Chart"></canvas>
+                        </div>
+                        <div class="analysis-details">
+                            <p><strong>频次最高:</strong> <span id="pos2High">-</span></p>
+                            <p><strong>出现次数:</strong> <span id="pos2Count">-</span></p>
+                            <p><strong>热点号码:</strong> <span id="pos2Hot">-</span></p>
+                            <p><strong>冷号推荐:</strong> <span id="pos2Cold">-</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 第3位 -->
+                    <div class="position-card">
+                        <h3>第3位分析</h3>
+                        <div class="chart-container">
+                            <canvas id="position3Chart"></canvas>
+                        </div>
+                        <div class="analysis-details">
+                            <p><strong>频次最高:</strong> <span id="pos3High">-</span></p>
+                            <p><strong>出现次数:</strong> <span id="pos3Count">-</span></p>
+                            <p><strong>热点号码:</strong> <span id="pos3Hot">-</span></p>
+                            <p><strong>冷号推荐:</strong> <span id="pos3Cold">-</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 第4位 -->
+                    <div class="position-card">
+                        <h3>第4位分析</h3>
+                        <div class="chart-container">
+                            <canvas id="position4Chart"></canvas>
+                        </div>
+                        <div class="analysis-details">
+                            <p><strong>频次最高:</strong> <span id="pos4High">-</span></p>
+                            <p><strong>出现次数:</strong> <span id="pos4Count">-</span></p>
+                            <p><strong>热点号码:</strong> <span id="pos4Hot">-</span></p>
+                            <p><strong>冷号推荐:</strong> <span id="pos4Cold">-</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 第5位 -->
+                    <div class="position-card">
+                        <h3>第5位分析</h3>
+                        <div class="chart-container">
+                            <canvas id="position5Chart"></canvas>
+                        </div>
+                        <div class="analysis-details">
+                            <p><strong>频次最高:</strong> <span id="pos5High">-</span></p>
+                            <p><strong>出现次数:</strong> <span id="pos5Count">-</span></p>
+                            <p><strong>热点号码:</strong> <span id="pos5Hot">-</span></p>
+                            <p><strong>冷号推荐:</strong> <span id="pos5Cold">-</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 第6位 -->
+                    <div class="position-card">
+                        <h3>第6位分析</h3>
+                        <div class="chart-container">
+                            <canvas id="position6Chart"></canvas>
+                        </div>
+                        <div class="analysis-details">
+                            <p><strong>频次最高:</strong> <span id="pos6High">-</span></p>
+                            <p><strong>出现次数:</strong> <span id="pos6Count">-</span></p>
+                            <p><strong>热点号码:</strong> <span id="pos6Hot">-</span></p>
+                            <p><strong>冷号推荐:</strong> <span id="pos6Cold">-</span></p>
+                        </div>
+                    </div>
+
+                    <!-- 蓝球分析 -->
+                    <div class="position-card">
+                        <h3>蓝球分析</h3>
+                        <div class="chart-container">
+                            <canvas id="blueBallChart"></canvas>
+                        </div>
+                        <div class="analysis-details">
+                            <p><strong>频次最高:</strong> <span id="blueBallHigh">-</span></p>
+                            <p><strong>出现次数:</strong> <span id="blueBallCount">-</span></p>
+                            <p><strong>热点号码:</strong> <span id="blueBallHot">-</span></p>
+                            <p><strong>冷号推荐:</strong> <span id="blueBallCold">-</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 预测建议 -->
+                <div class="prediction">
+                    <h2>🎯 预测建议</h2>
+                    <div class="prediction-result">
+                        <h3>基于分析的建议号码</h3>
+                        <div class="suggestion-box">
+                            <p class="suggestion-label">红球推荐（6个）：</p>
+                            <p class="suggestion-value" id="redSuggestion">-</p>
+                        </div>
+                        <div class="suggestion-box">
+                            <p class="suggestion-label">蓝球推荐（1个）：</p>
+                            <p class="suggestion-value" id="blueSuggestion">-</p>
+                        </div>
+                        <div class="disclaimer">
+                            <p>⚠️ <strong>免责声明：</strong></p>
+                            <p>本工具仅供娱乐和学习参考，预测结果不保证准确性。彩票具有随机性，任何分析工具都无法保证中奖。请理性购彩，量力而行。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 数据列表 -->
+                <div class="data-table">
+                    <h2>📋 历史数据展示</h2>
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>期数</th>
+                                <th>红球</th>
+                                <th>蓝球</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>双色球预测分析系统 © 2026 | 仅供娱乐学习使用</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="data.js"></script>
+    <script src="analysis.js"></script>
+</body>
+</html>
