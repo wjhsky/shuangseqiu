@@ -15,7 +15,7 @@ function analyzeData() {
     const allData = parseAllData();
     if (!allData) return;
     
-    // ��示结果区域
+    // 显示结果区域
     document.getElementById('resultSection').style.display = 'block';
     
     // 滚动到结果区域
